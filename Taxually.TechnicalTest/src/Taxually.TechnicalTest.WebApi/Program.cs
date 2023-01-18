@@ -1,3 +1,10 @@
+using MediatR;
+using System.Net.Http;
+using System.Reflection;
+using Taxually.TechnicalTest.Core;
+using Taxually.TechnicalTest.Core.Interfaces;
+using Taxually.TechnicalTest.Core.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddTransient<IHttpClient, TaxuallyHttpClient>();
+builder.Services.AddTransient<IQueueClient, TaxuallyQueueClient>();
+
+builder.Services.AddTechnicalTestCoreAssemblyForMediatR();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
