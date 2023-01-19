@@ -26,7 +26,7 @@ namespace Taxually.TechnicalTest.Core.Handlers
             _queueClient = queue;
         }
 
-        async Task<VatRegistrationResponse> IRequestHandler<VatRegistrationRequest, VatRegistrationResponse>.Handle(VatRegistrationRequest request, CancellationToken cancellationToken)
+        public async Task<VatRegistrationResponse> Handle(VatRegistrationRequest request, CancellationToken cancellationToken = default)
         {
             VatRegistrationResponse vatRegistrationResponse = new VatRegistrationResponse();
 
@@ -53,7 +53,7 @@ namespace Taxually.TechnicalTest.Core.Handlers
             return vatRegistrationResponse;
         }
 
-        private async Task<bool> HandleUKVatRequestAsync(VatRegistrationRequest request, CancellationToken cancellationToken)
+        private async Task<bool> HandleUKVatRequestAsync(VatRegistrationRequest request, CancellationToken cancellationToken = default)
         {
             return await _httpClient.PostAsync(UkTaxUrl, request, cancellationToken);
         }
