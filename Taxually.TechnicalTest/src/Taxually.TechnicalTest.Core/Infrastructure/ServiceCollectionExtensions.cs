@@ -1,9 +1,7 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
 namespace Taxually.TechnicalTest.Core.Infrastructure
 {
@@ -11,7 +9,16 @@ namespace Taxually.TechnicalTest.Core.Infrastructure
     {
         public static IServiceCollection AddTechnicalTestCoreAssemblyForMediatR(this IServiceCollection serviceCollection)
         {
-            return serviceCollection.AddMediatR(Assembly.GetExecutingAssembly());
+            return serviceCollection
+                .AddMediatR(Assembly.GetExecutingAssembly())
+                .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        }
+
+        private static IServiceCollection AddValidatorsFromAssembly(this IServiceCollection serviceCollection, Assembly assembly)
+        {
+            AssemblyScanner.FindValidatorsInAssembly(assembly).ForEach(item => serviceCollection.AddSingleton(item.InterfaceType, item.ValidatorType));
+
+            return serviceCollection;
         }
     }
 }

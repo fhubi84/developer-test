@@ -4,6 +4,7 @@ using System.Reflection;
 using Taxually.TechnicalTest.Core;
 using Taxually.TechnicalTest.Core.Interfaces;
 using Taxually.TechnicalTest.Core.Infrastructure;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddTransient<IHttpClient, TaxuallyHttpClient>();
 builder.Services.AddTransient<IQueueClient, TaxuallyQueueClient>();
 
 builder.Services.AddTechnicalTestCoreAssemblyForMediatR();
+builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
