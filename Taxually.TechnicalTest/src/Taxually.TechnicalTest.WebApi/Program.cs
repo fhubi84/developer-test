@@ -5,6 +5,7 @@ using Taxually.TechnicalTest.Core;
 using Taxually.TechnicalTest.Core.Interfaces;
 using Taxually.TechnicalTest.Core.Infrastructure;
 using FluentValidation.AspNetCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,15 @@ builder.Services.AddTransient<IQueueClient, TaxuallyQueueClient>();
 builder.Services.AddTechnicalTestCoreAssemblyForMediatR();
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 builder.Services.AddSwaggerGen();
+
+builder.Logging.ClearProviders();
+
+var logger = new LoggerConfiguration()
+    .WriteTo.File("Logs/Taxually.TechnicalTest.log", rollingInterval: RollingInterval.Day)
+    .WriteTo.Console()
+    .CreateLogger();
+
+builder.Logging.AddSerilog(logger);
 
 var app = builder.Build();
 
