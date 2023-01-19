@@ -1,9 +1,9 @@
 using FluentAssertions;
 using Moq;
 using Taxually.TechnicalTest.Core.Commands.Requests;
-using Taxually.TechnicalTest.Core.Commands.Responses;
 using Taxually.TechnicalTest.Core.Handlers;
 using Taxually.TechnicalTest.Core.Interfaces;
+using Taxually.TechnicalTest.Core.Processors;
 
 namespace Taxually.TechnicalTest.Tests
 {
@@ -19,7 +19,12 @@ namespace Taxually.TechnicalTest.Tests
             var queueClient = new Mock<IQueueClient>();
             queueClient.Setup(c => c.EnqueueAsync(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<CancellationToken>())).Returns(Task.FromResult(true));
 
-            handler = new VatRegistrationHandler(httpClient.Object, queueClient.Object);
+            var vatRequestProcessorFactory = new Mock<IVatRequestProcessorFactory>();
+            vatRequestProcessorFactory.Setup(f => f.GetVatRequestProcessor("GB")).Returns(new BritishVatRequestProcessor(httpClient.Object));
+            vatRequestProcessorFactory.Setup(f => f.GetVatRequestProcessor("FR")).Returns(new FrenchVatRequestProcessor(queueClient.Object));
+            vatRequestProcessorFactory.Setup(f => f.GetVatRequestProcessor("DE")).Returns(new GermanVatRequestProcessor(queueClient.Object));
+
+            handler = new VatRegistrationHandler(vatRequestProcessorFactory.Object);
         }
 
         [Theory]

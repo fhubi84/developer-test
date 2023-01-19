@@ -18,7 +18,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<IHttpClient, TaxuallyHttpClient>();
 builder.Services.AddTransient<IQueueClient, TaxuallyQueueClient>();
 
-builder.Services.AddTechnicalTestCoreAssemblyForMediatR();
+builder.Services.AddTechnicalTestCoreServices();
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 builder.Services.AddSwaggerGen();
 
