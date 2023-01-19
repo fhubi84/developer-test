@@ -1,0 +1,18 @@
+<Project>
+  <PropertyGroup>
+    <FluentAssertionsVersion>6.9.0</FluentAssertionsVersion>
+    <FluentValidationVersion>11.4.0</FluentValidationVersion>
+    <FluentValidationVersionAspNetCoreVersion>11.2.2</FluentValidationVersionAspNetCoreVersion>
+    <FluentValidationDependencyInjectionExtensionsVersion>11.4.0</FluentValidationDependencyInjectionExtensionsVersion>
+    <MediatRVersion>11.1.0</MediatRVersion>
+    <MediatRExtensionsMicrosoftDependencyInjectionVersion>11.0.0</MediatRExtensionsMicrosoftDependencyInjectionVersion>
+    <MoqVersion>4.18.4</MoqVersion>
+    <SerilogAspNetCoreVersion>6.1.0</SerilogAspNetCoreVersion>
+    <SerilogExtensionsLoggingFileVersion>3.0.0</SerilogExtensionsLoggingFileVersion>
+    <SwashbuckleAspNetCoreVersion>6.2.3</SwashbuckleAspNetCoreVersion>
+    <MicrosoftNETTestSdkVersion>17.4.1</MicrosoftNETTestSdkVersion>
+    <XunitVersion>2.4.2</XunitVersion>
+    <XunitRunnerVisualStudioVersion>2.4.5</XunitRunnerVisualStudioVersion>
+    <CoverletCollectorVersion>3.2.0</CoverletCollectorVersion>
+  </PropertyGroup>
+</Project>
