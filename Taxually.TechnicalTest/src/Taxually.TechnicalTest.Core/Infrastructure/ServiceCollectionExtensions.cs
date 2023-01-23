@@ -15,7 +15,7 @@ namespace Taxually.TechnicalTest.Core.Infrastructure
             return serviceCollection
                 .AddMediatR(Assembly.GetExecutingAssembly())
                 .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly())
-                .AddScoped<VatRequestProcessorFactory>()
+                .AddScoped<IVatRequestProcessorFactory, VatRequestProcessorFactory>()
                 .AddScoped<BritishVatRequestProcessor>()
                 .AddScoped<FrenchVatRequestProcessor>()
                 .AddScoped<GermanVatRequestProcessor>();
